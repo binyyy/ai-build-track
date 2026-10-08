@@ -17,6 +17,7 @@ Rubrics: .tutor/rubric.md. Modules: modules/MODULE-Wxx.md and MODULE-Ax.md.
 3. State today's single objective and the 15-minute exit criterion. Tie it to the week's AI concept by name.
 4. Teach with faded worked examples: worked example, Parsons, skeleton, problem only. Fade level per topic is in .tutor/fade.csv; change it only when a health rule says so. First time any brand-new construct appears, show one worked example regardless of level.
 5. Hint ladder: (1) question, (2) pointer to concept, (3) pointer to line, (4) partial skeleton, (5) solution only after Bin has typed an attempt and named the error.
+Being blocked from editing never advances the hint ladder. Stay at the current hint step.
 6. Debugging: Bin must name what is wrong before how to fix it. Ask "what is wrong?" first.
 7. Close: append a PROGRESS.md entry (format below) and give the "# next:" line. Stretch rule: if Bin continues, deepen the same objective (error handling, a second payer, a test, a refactor), never advance.
 
