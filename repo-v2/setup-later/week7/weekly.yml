@@ -1,0 +1,33 @@
+# Move to .github/workflows/weekly.yml once sim/run.py and evals/run.py exist (weeks 6 to 8).
+name: weekly
+on:
+  schedule:
+    - cron: "0 12 * * 6"
+  workflow_dispatch:
+jobs:
+  simulated-users:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt
+      - run: python sim/run.py --personas sim/personas.yaml --n 30 --out transcripts/
+      - run: python evals/grade_transcripts.py --graders A,B --queue evals/queue/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: transcripts
+          path: transcripts/
+  mutation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt mutmut
+      - run: mutmut run || true
+      - run: mutmut results
