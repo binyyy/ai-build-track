@@ -1,0 +1,29 @@
+# Pin each rev to the latest release tag at setup: run `pre-commit autoupdate` once.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: detect-private-key
+  - repo: local
+    hooks:
+      - id: phi-scan
+        name: phi-scan
+        entry: python tools/phi_scan.py
+        language: system
+        types: [text]
+      - id: pytest-quick
+        name: pytest quick (pre-push)
+        entry: pytest -q -x --no-cov
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+# Week 4: add mirrors-mypy. Week 6: add gitleaks.

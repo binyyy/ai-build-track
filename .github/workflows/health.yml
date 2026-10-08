@@ -1,0 +1,24 @@
+name: program-health
+on:
+  schedule:
+    - cron: "0 13 * * 0"
+  workflow_dispatch:
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/health_metrics.py
+      - run: |
+          f=$(ls -t reports/health/*.md | head -1)
+          gh issue create --title "Program health $(basename $f .md)" --body-file "$f"
+        env:
+          GH_TOKEN: ${{ github.token }}

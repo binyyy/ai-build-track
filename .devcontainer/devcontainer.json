@@ -1,0 +1,10 @@
+{
+  "name": "ai-build-track",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "lts" },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "pip install -r requirements-dev.txt && pre-commit install --hook-type pre-commit --hook-type pre-push && npm install -g @anthropic-ai/claude-code",
+  "customizations": { "vscode": { "extensions": ["ms-python.python", "charliermarsh.ruff"] } }
+}
